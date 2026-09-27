@@ -1,0 +1,4 @@
+dataset,columns,rows,duplicate_keys,is_unique
+olist_order_items_dataset,order_id + order_item_id,112650,0,True
+olist_order_payments_dataset,order_id + payment_sequential,103886,0,True
+olist_order_reviews_dataset,review_id + order_id,99224,0,True

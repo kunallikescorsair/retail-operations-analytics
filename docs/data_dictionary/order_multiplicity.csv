@@ -1,0 +1,6 @@
+metric,value
+orders,99441
+orders_with_multiple_items,9803
+max_items_in_single_order,21
+orders_with_multiple_payments,2961
+max_payment_records_single_order,29

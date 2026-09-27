@@ -1,0 +1,12 @@
+dataset,rows,exact_duplicate_rows,duplicate_pct
+olist_geolocation_dataset,1000163,261831,26.1788
+olist_customers_dataset,99441,0,0.0
+olist_order_items_dataset,112650,0,0.0
+olist_order_payments_dataset,103886,0,0.0
+olist_order_reviews_dataset,99224,0,0.0
+olist_orders_dataset,99441,0,0.0
+olist_products_dataset,32951,0,0.0
+olist_sellers_dataset,3095,0,0.0
+product_category_name_translation,71,0,0.0
+olist_closed_deals_dataset,842,0,0.0
+olist_marketing_qualified_leads_dataset,8000,0,0.0

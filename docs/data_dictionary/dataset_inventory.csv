@@ -1,0 +1,12 @@
+dataset,rows,columns,memory_mb
+olist_geolocation_dataset,1000163,5,145.2
+olist_order_items_dataset,112650,7,39.43
+olist_order_payments_dataset,103886,5,17.81
+olist_customers_dataset,99441,5,29.62
+olist_orders_dataset,99441,8,58.97
+olist_order_reviews_dataset,99224,7,42.75
+olist_products_dataset,32951,9,6.79
+olist_marketing_qualified_leads_dataset,8000,4,2.38
+olist_sellers_dataset,3095,4,0.66
+olist_closed_deals_dataset,842,14,0.65
+product_category_name_translation,71,2,0.01

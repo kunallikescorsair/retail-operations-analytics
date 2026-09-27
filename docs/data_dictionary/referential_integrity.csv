@@ -1,0 +1,9 @@
+relationship,child_rows,unmatched_rows,unmatched_pct
+orders.customer_id -> customers.customer_id,99441,0,0.0
+order_items.order_id -> orders.order_id,112650,0,0.0
+order_items.product_id -> products.product_id,112650,0,0.0
+order_items.seller_id -> sellers.seller_id,112650,0,0.0
+payments.order_id -> orders.order_id,103886,0,0.0
+reviews.order_id -> orders.order_id,99224,0,0.0
+closed_deals.mql_id -> marketing_leads.mql_id,842,0,0.0
+closed_deals.seller_id -> sellers.seller_id,842,462,54.8694
