@@ -52,6 +52,11 @@ WITH date_bounds AS (
 
         UNION ALL
 
+        SELECT shipping_limit_date::date
+        FROM staging.order_items
+
+        UNION ALL
+
         SELECT review_creation_date::date
         FROM staging.order_reviews
 
