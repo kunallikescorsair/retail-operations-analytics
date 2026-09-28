@@ -205,6 +205,15 @@ SELECT
         WHEN o.order_delivered_customer_date IS NOT NULL
          AND o.order_delivered_customer_date
                 >= o.order_purchase_timestamp
+         AND (
+                o.order_delivered_carrier_date IS NULL
+                OR (
+                    o.order_delivered_carrier_date
+                        >= o.order_purchase_timestamp
+                    AND o.order_delivered_customer_date
+                        >= o.order_delivered_carrier_date
+                )
+             )
         THEN ROUND(
             (
                 EXTRACT(
@@ -249,8 +258,23 @@ SELECT
         THEN
             o.order_delivered_customer_date
             > o.order_estimated_delivery_date
-        ELSE FALSE
+        ELSE NULL
     END AS is_late_delivery,
+
+    (
+        o.order_delivered_customer_date IS NOT NULL
+        AND o.order_delivered_customer_date
+            >= o.order_purchase_timestamp
+        AND (
+            o.order_delivered_carrier_date IS NULL
+            OR (
+                o.order_delivered_carrier_date
+                    >= o.order_purchase_timestamp
+                AND o.order_delivered_customer_date
+                    >= o.order_delivered_carrier_date
+            )
+        )
+    ) AS has_valid_delivery_timeline,
 
     (
         o.order_delivered_carrier_date IS NOT NULL
