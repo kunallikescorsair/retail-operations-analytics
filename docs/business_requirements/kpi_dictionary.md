@@ -351,3 +351,307 @@ The dashboard must not:
 - include invalid delivery timelines in duration KPIs
 - interpret missing geographic coordinates as zero coordinates
 - infer missing product categories
+
+---
+
+# Enterprise Operations KPI Contract
+
+The enterprise operations layer combines original ecommerce transactions with
+documented synthetic store, supplier, inventory, cost, budget, target and
+marketing data.
+
+Synthetic operational measures must never be represented as historical Olist
+operational data.
+
+## Commercial Scope
+
+Unless otherwise stated:
+
+- sales KPIs use delivered orders
+- merchandise value uses original order-item price
+- gross order value uses merchandise plus freight
+- cost and margin measures use synthetic estimated product cost
+- store assignments are synthetic operating-location assignments
+- supplier attributes and mappings are synthetic
+- inventory, budgets, targets and marketing spend are synthetic
+
+---
+
+## Estimated COGS
+
+Grain:
+
+order item
+
+Definition:
+
+estimated unit cost multiplied by item quantity represented by the order-item
+row.
+
+Because each Olist order-item row represents one purchased item, the warehouse
+stores estimated unit cost directly as estimated COGS for that row.
+
+This is a synthetic analytical estimate and is not actual Olist cost data.
+
+---
+
+## Estimated Gross Margin
+
+Definition:
+
+merchandise value minus estimated COGS
+
+Formula:
+
+Estimated Gross Margin =
+Merchandise Value - Estimated COGS
+
+---
+
+## Estimated Gross Margin Percentage
+
+Formula:
+
+Estimated Gross Margin Percentage =
+Estimated Gross Margin / Merchandise Value
+
+The metric must be calculated from aggregated margin and merchandise value.
+
+Do not average row-level margin percentages.
+
+---
+
+## Store Sales
+
+Definition:
+
+gross order value for delivered orders assigned to a synthetic operating
+location.
+
+Store assignments are generated deterministically using customer geography.
+
+---
+
+## Sales Budget
+
+Synthetic monthly planning measure at store-month grain.
+
+This must be labelled as Budget rather than Actual.
+
+---
+
+## Sales Target
+
+Synthetic monthly commercial target at store-month grain.
+
+This must be labelled as Target rather than Actual.
+
+---
+
+## Budget Attainment Percentage
+
+Formula:
+
+Actual Delivered Sales / Sales Budget
+
+A value above 100 percent indicates actual sales exceeded budget.
+
+---
+
+## Target Attainment Percentage
+
+Formula:
+
+Actual Delivered Sales / Sales Target
+
+A value above 100 percent indicates actual sales exceeded target.
+
+---
+
+## Inventory Snapshot Grain
+
+Inventory is stored at:
+
+month x store x product
+
+Inventory balances are semi-additive.
+
+Opening stock, closing stock and inventory value may be aggregated across stores
+and products for the same snapshot date.
+
+They must not be summed across multiple snapshot dates and interpreted as an
+inventory balance.
+
+---
+
+## Current Units on Hand
+
+Definition:
+
+sum of closing stock quantity at the latest available inventory snapshot date.
+
+The snapshot date must always be displayed with this KPI.
+
+---
+
+## Current Inventory Value
+
+Definition:
+
+sum of estimated closing inventory value at the latest available inventory
+snapshot date.
+
+Formula:
+
+Closing Stock Quantity x Estimated Unit Cost
+
+This is an estimated synthetic inventory valuation.
+
+It must not be summed across months.
+
+---
+
+## Stockout Row Rate
+
+Definition:
+
+percentage of inventory snapshot rows where stockout days is greater than zero.
+
+Formula:
+
+Inventory Rows With Stockout /
+Total Inventory Snapshot Rows
+
+This measures stockout incidence across monthly store-product observations.
+
+---
+
+## Total Stockout Days
+
+Definition:
+
+sum of synthetic stockout days across inventory snapshot rows.
+
+This is a period flow metric and may be aggregated across time.
+
+---
+
+## Below Reorder Rate
+
+Definition:
+
+percentage of inventory snapshot rows where closing stock is below the
+configured reorder point.
+
+For historical period analysis:
+
+Below-Reorder Snapshot Rows /
+Total Inventory Snapshot Rows
+
+For current inventory analysis, the same calculation must be restricted to the
+latest snapshot date.
+
+---
+
+## Supplier Commercial Performance
+
+Supplier commercial measures use delivered order items assigned to each
+synthetic primary supplier.
+
+Typical measures include:
+
+- delivered item rows
+- delivered orders
+- merchandise value
+- estimated COGS
+- estimated gross margin
+- estimated gross margin percentage
+
+Supplier rating, lead time and contractual fill rate are synthetic supplier
+attributes.
+
+---
+
+## Marketing Spend
+
+Synthetic marketing expenditure at:
+
+month x store x channel
+
+Channels:
+
+- paid_search
+- social
+- email
+- display
+- affiliate
+
+---
+
+## Total Marketing Spend
+
+Definition:
+
+all marketing spend in the selected reporting period.
+
+This includes store-months with and without delivered sales.
+
+---
+
+## Marketing Spend in Active Sales Months
+
+Definition:
+
+marketing spend where the same store-month has positive delivered sales.
+
+This metric is useful when comparing marketing expenditure directly with
+realized commercial activity.
+
+---
+
+## Marketing Spend in Zero-Sales Months
+
+Definition:
+
+marketing spend for store-months where delivered sales equal zero.
+
+This must remain visible rather than being silently removed from total
+marketing expenditure.
+
+---
+
+## Total Marketing Spend Percentage of Sales
+
+Formula:
+
+Total Marketing Spend /
+Total Delivered Sales
+
+Total marketing spend includes zero-sales store-months.
+
+---
+
+## Active-Month Marketing Spend Percentage of Sales
+
+Formula:
+
+Marketing Spend in Active Sales Months /
+Total Delivered Sales
+
+This measure excludes marketing expenditure from zero-sales store-months from
+the numerator.
+
+It is analytically distinct from Total Marketing Spend Percentage of Sales.
+
+---
+
+## Synthetic Data Disclosure
+
+Operational planning, inventory, supplier, cost, store, budget, target and
+marketing datasets were synthetically generated to extend the public ecommerce
+source into an enterprise-style analytics environment.
+
+The synthetic layer exists to demonstrate analytics engineering and business
+intelligence capabilities and must not be represented as historical Olist
+operational data.
+
