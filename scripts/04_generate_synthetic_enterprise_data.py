@@ -1085,6 +1085,10 @@ def build_inventory(
         .reset_index()
     )
 
+    global_last_month = (
+        delivered_items["snapshot_month"].max()
+    )
+
     rows = []
 
     for (
@@ -1109,9 +1113,7 @@ def build_inventory(
             "snapshot_month"
         ].min()
 
-        last_month = group[
-            "snapshot_month"
-        ].max()
+        last_month = global_last_month
 
         months = pd.date_range(
             first_month,

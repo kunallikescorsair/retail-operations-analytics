@@ -27,6 +27,11 @@ def main():
     )
     product_cost = pd.read_csv(DATA_DIR / "product_cost.csv")
     inventory = pd.read_csv(DATA_DIR / "inventory_snapshot.csv")
+
+    inventory["snapshot_month"] = pd.to_datetime(
+        inventory["snapshot_month"]
+    )
+
     budgets = pd.read_csv(DATA_DIR / "monthly_store_budget.csv")
     targets = pd.read_csv(DATA_DIR / "sales_targets.csv")
     marketing = pd.read_csv(DATA_DIR / "marketing_spend.csv")
@@ -292,6 +297,40 @@ def main():
         .to_string()
     )
 
+    latest_inventory_month = (
+        inventory["snapshot_month"].max()
+    )
+
+    combination_last_month = (
+        inventory
+        .groupby(
+            ["store_id", "product_id"]
+        )["snapshot_month"]
+        .max()
+    )
+
+    combinations_at_final_month = (
+        combination_last_month
+        .eq(latest_inventory_month)
+        .sum()
+    )
+
+    total_inventory_combinations = len(
+        combination_last_month
+    )
+
+    print(
+        f"Latest inventory month: "
+        f"{latest_inventory_month.date()}"
+    )
+
+    print(
+        f"Store-product combinations reaching "
+        f"final month: "
+        f"{combinations_at_final_month:,} / "
+        f"{total_inventory_combinations:,}"
+    )
+
     section("7. ACTUAL VS BUDGET / TARGET")
 
     delivered["month"] = (
@@ -501,6 +540,14 @@ def main():
         (
             "inventory contains meaningful stockouts",
             0.01 <= stockout_rate <= 0.20,
+        )
+    )
+
+    assertions.append(
+        (
+            "inventory combinations persist to final month",
+            combinations_at_final_month
+            == total_inventory_combinations,
         )
     )
 
