@@ -602,11 +602,12 @@ retail-operations-analytics/
 │   └── 09_validate_snowflake_migration.py
 │
 ├── sql/
-│   ├── analysis/
+│   ├── setup/
+│   ├── staging/
 │   ├── analytics/
 │   ├── quality/
-│   ├── raw/
-│   └── staging/
+│   ├── analysis/
+│   └── raw/
 │
 ├── src/
 │   ├── cleaning/
@@ -642,6 +643,7 @@ python scripts/09_validate_snowflake_migration.py
 Warehouse SQL is maintained under:
 
 ```text
+sql/setup/
 sql/raw/
 sql/staging/
 sql/analytics/
