@@ -30,3 +30,6 @@ data/synthetic/*
 # Excel temporary files
 ~$*.xlsx
 ~$*.xls
+
+# Keep the completed portfolio Power BI report
+!powerbi/retail_operations_analytics.pbix
